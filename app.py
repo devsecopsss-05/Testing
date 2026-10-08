@@ -9,7 +9,7 @@ SECRET_KEY = "admin123"  # hardcoded secret
 @app.route("/ping")
 def ping():
     host = request.args.get("host")
-    os.system("ping -c 1 " + host)  # command injection
+    subprocess.run(["ping", "-c", "1", host], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return "done"
 
 @app.route("/calc")
