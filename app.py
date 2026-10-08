@@ -9,7 +9,7 @@ SECRET_KEY = "admin123"  # hardcoded secret
 @app.route("/ping")
 def ping():
     host = request.args.get("host")
-    os.system("ping -c 1 " + host)  # command injection
+    subprocess.run(["ping", "-c", "1", host], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return "done"
 
 @app.route("/calc")
@@ -23,4 +23,4 @@ def load():
     return str(data)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")  # debug mode exposed to the network
+    app.run(debug=False, host="127.0.0.1")
